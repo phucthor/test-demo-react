@@ -13,19 +13,27 @@ class MyComponent extends React.Component {
   };
 
   handleAddNewUser = (userObj) => {
-    let listUsersNew = this.state.listUsers;
-    listUsersNew.unshift(userObj);
-    this.setState({
-      listUsers: listUsersNew,
-    });
+    // let listUsersNew = this.state.listUsers;
+    // listUsersNew.unshift(userObj);
+    // this.setState({
+    //   listUsers: listUsersNew,
+    // });
 
     // let listUsersClone = [...this.state.listUsers]
 
     // console.log('>>>Check data from parent: ', userObj);
-    // this.setState({
-    //     listUsers: [userObj, ...this.state.listUsers]
-    //     listUsers: [...this.state.listUsers, userObj]
-    // })
+    this.setState({
+      listUsers: [userObj, ...this.state.listUsers],
+      // listUsers: [...this.state.listUsers, userObj]
+    });
+  };
+
+  handleDeleteUser = (userId) => {
+    let listUsersClone = this.state.listUsers;
+    listUsersClone = listUsersClone.filter(item => item.id !== userId);
+    this.setState({
+      listUsers: listUsersClone,
+    });
   };
   render() {
     //DRY: don't repeat yourself
@@ -35,7 +43,10 @@ class MyComponent extends React.Component {
           <AddUserInfor handleAddNewUser={this.handleAddNewUser} />
           <br />
           <br />
-          <DisplayInfor listUsers={this.state.listUsers} />
+          <DisplayInfor
+            listUsers={this.state.listUsers}
+            handleDeleteUser={this.handleDeleteUser}
+          />
         </div>
         <div className="b"></div>
       </>
