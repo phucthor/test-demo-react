@@ -2,9 +2,33 @@ import React from "react";
 import "./DisplayInfor.scss";
 import logo from "../logo.svg";
 class DisplayInfor extends React.Component {
-  state = {
-    isShowListUser: true,
-  };
+  constructor(props) {
+    console.log(">>> call constructor: 1");
+    super(props); //call constructor of parent class
+    this.state = {
+      //state: object
+      isShowListUser: true,
+    };
+  }
+
+  componentDidMount() {
+    console.log(">>> call componentDidMount: 2");
+    setTimeout(() => {
+      document.title = "Hey Tommy";
+    }, 3000);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log(">>> call componentDidUpdate: 4", this.props, prevProps);
+    if (prevProps.listUsers !== this.props.listUsers) {
+      if(this.props.listUsers.length === 5) {
+        alert("You got 5 users!");
+      }
+    }
+    if (prevState.isShowListUser !== this.state.isShowListUser) {
+      console.log(">>> call componentDidUpdate: 4.2");
+    }
+  }
 
   handleShowHide = () => {
     this.setState({
@@ -13,6 +37,7 @@ class DisplayInfor extends React.Component {
   };
 
   render() {
+    console.log(">>> call render: 3");
     //destructuring array/object
     const { listUsers } = this.props; //object
     // console.log(listUsers);
@@ -36,7 +61,7 @@ class DisplayInfor extends React.Component {
         {this.state.isShowListUser && (
           <>
             {listUsers.map((user, index) => {
-              console.log(">>> check map user: ", user);
+              // console.log(">>> check map user: ", user);
 
               return (
                 <div key={user.id} className={+user.age > 18 ? "green" : "red"}>
