@@ -15,11 +15,11 @@ body {
         color: #000;
 
         &.active {
-          color: red !important;
+          color: blue !important;
           background-color: transparent;
 
           &:hover {
-            color: darkred !important;
+            color: blueviolet !important;
           }
         }
       }
