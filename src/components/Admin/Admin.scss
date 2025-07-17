@@ -1,0 +1,21 @@
+.admin-container {
+  display: flex;
+  .admin-sidebar {
+    .pro-sidebar {
+      height: 100vh !important;
+    //   position: fixed;
+    //   z-index: 1000;
+    //   width: 250px;
+    //   background-color: #f8f9fa;
+    //   .pro-sidebar-inner {
+    //     background-color: #f8f9fa;
+    //     .pro-menu-item {
+    //       color: #000;
+    //       &:hover {
+    //         background-color: #e9ecef;
+    //       }
+    //     }
+    //   }
+    }
+  }
+}
