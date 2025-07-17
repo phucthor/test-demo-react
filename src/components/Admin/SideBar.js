@@ -7,13 +7,20 @@ import {
   SidebarHeader,
   SidebarFooter,
   SidebarContent,
-} from 'react-pro-sidebar';
-import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa';
-import sidebarBg from '../../assets/bg2.jpg';
+} from "react-pro-sidebar";
+import {
+  FaTachometerAlt,
+  FaGem,
+  FaList,
+  FaGithub,
+  FaRegLaughWink,
+  FaHeart,
+} from "react-icons/fa";
+import sidebarBg from "../../assets/bg2.jpg";
 import { AiFillApple } from "react-icons/ai";
-import {MdDashboard} from "react-icons/md";
-import './SideBar.scss';
-
+import { MdDashboard } from "react-icons/md";
+import "./SideBar.scss";
+import { Link } from "react-router-dom";
 const SideBar = (props) => {
   const { image, collapsed, toggled, handleToggleSidebar } = props;
   return (
@@ -38,7 +45,7 @@ const SideBar = (props) => {
               whiteSpace: "nowrap",
             }}
           >
-            <AiFillApple size={'2em'} color={'aliceblue'} />
+            <AiFillApple size={"2em"} color={"aliceblue"} />
             <span>Tommy Admin</span>
           </div>
         </SidebarHeader>
@@ -50,6 +57,7 @@ const SideBar = (props) => {
               // suffix={<span className="badge red">New</span>}
             >
               Dashboard
+              <Link to="/admins" />
             </MenuItem>
             {/* <MenuItem icon={<FaGem />}>{" "}components</MenuItem> */}
           </Menu>
@@ -59,7 +67,10 @@ const SideBar = (props) => {
               icon={<FaGem />}
               title="Features"
             >
-              <MenuItem>Users</MenuItem>
+              <MenuItem>
+                Users
+                <Link to="/admins/manage-user" />
+              </MenuItem>
               <MenuItem>Quizzes</MenuItem>
               <MenuItem>Questions</MenuItem>
             </SubMenu>
