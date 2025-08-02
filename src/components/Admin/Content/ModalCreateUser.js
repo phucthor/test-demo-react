@@ -2,9 +2,9 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FaFolderPlus } from "react-icons/fa";
-import axios from "axios";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { postCreateNewUser } from "../../../services/apiServices";
 const ModalCreateUser = (props) => {
 
   const { show, setShow } = props;
@@ -48,8 +48,6 @@ const ModalCreateUser = (props) => {
     const isValidEmail = validateEmail(email);
     if (!isValidEmail) {
       toast.error("Invalid email format");
-      // toast.success("Please enter a valid email address");
-      // toast.info("Email should be in the format:")
       return;
     }
     if (!password || password.length < 6) {
@@ -58,23 +56,15 @@ const ModalCreateUser = (props) => {
     }
     // call APIs
 
-    // submit data to backend
-    const data = new FormData();
-    data.append('email', email);
-    data.append('password', password);
-    data.append('username', username);
-    data.append('role', role);
-    data.append('userImage', image);
-
-    let res = await axios.post('http://localhost:8081/api/v1/participant', data);
-    console.log("Response from API:", res.data);
-    if (res.data && res.data.EC === 0) {
-      toast.success(res.data.EM);
+    let data = await postCreateNewUser(email, password, username, role, image);
+    console.log("Response from API:", data);
+    if (data && data.EC === 0) {
+      toast.success(data.EM);
       handleClose();
     }
 
-    if (res.data && res.data.EC !== 0) {
-      toast.error(res.data.EM);
+    if (data && data.EC !== 0) {
+      toast.error(data.EM);
     }
     
   }
