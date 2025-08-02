@@ -3,6 +3,8 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FaFolderPlus } from "react-icons/fa";
 import axios from "axios";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const ModalCreateUser = (props) => {
 
   const { show, setShow } = props;
@@ -32,18 +34,31 @@ const ModalCreateUser = (props) => {
     }
   }
 
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
   const handleSubmitCreateUser = async() => {
     // validate input fields
 
+    const isValidEmail = validateEmail(email);
+    if (!isValidEmail) {
+      toast.error("Invalid email format");
+      // toast.success("Please enter a valid email address");
+      // toast.info("Email should be in the format:")
+      return;
+    }
+    if (!password || password.length < 6) {
+      toast.error("Invalid password");
+      return;
+    }
     // call APIs
-    // let data = {
-    //   email: email,
-    //   password: password,
-    //   username: username,
-    //   role: role,
-    //   userImage: image,
-    // }
 
+    // submit data to backend
     const data = new FormData();
     data.append('email', email);
     data.append('password', password);
@@ -51,19 +66,21 @@ const ModalCreateUser = (props) => {
     data.append('role', role);
     data.append('userImage', image);
 
-    let res = axios.post('http://localhost:8081/api/v1/participant', data);
-    console.log("Response from API:", res);
-    
-    console.log("Creating user with details:", data);
-    // Reset form fields after submission
+    let res = await axios.post('http://localhost:8081/api/v1/participant', data);
+    console.log("Response from API:", res.data);
+    if (res.data && res.data.EC === 0) {
+      toast.success(res.data.EM);
+      handleClose();
+    }
+
+    if (res.data && res.data.EC !== 0) {
+      toast.error(res.data.EM);
+    }
     
   }
 
   return (
     <>
-      {/* <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button> */}
 
       <Modal
         show={show}
