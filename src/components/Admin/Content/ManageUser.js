@@ -2,6 +2,8 @@ import { useState } from "react";
 import ModalCreateUser from "./ModalCreateUser";
 import "./ManageUser.scss";
 import { FaPlusCircle } from "react-icons/fa";
+import { Tab } from "bootstrap";
+import TableUser from "./TableUser";
 const ManageUser = (props) => {
   const [showModalCreateUser, setShowModalCreateUser] = useState(false);
 
@@ -17,7 +19,9 @@ const ManageUser = (props) => {
             <FaPlusCircle /> Add new Users
           </button>
         </div>
-        <div className="table-users-container">table users</div>
+        <div className="table-users-container">
+          <TableUser />
+        </div>
         <ModalCreateUser 
         show={showModalCreateUser}
         setShow={setShowModalCreateUser}
