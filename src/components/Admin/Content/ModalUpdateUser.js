@@ -4,10 +4,10 @@ import Modal from "react-bootstrap/Modal";
 import { FaFolderPlus } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { postCreateNewUser } from "../../../services/apiServices";
+import { putUpdateUser } from "../../../services/apiServices";
 import _ from "lodash";
 const ModalUpdateUser = (props) => {
-  const { show, setShow, dataUpdate } = props;
+  const { show, setShow, dataUpdate, resetUpdateData } = props;
   // const [show, setShow] = useState(false);
 
   const handleClose = () => {
@@ -18,6 +18,7 @@ const ModalUpdateUser = (props) => {
     setRole("USER");
     setImage("");
     setPreviewImage("");
+    resetUpdateData();
   };
 
   const [email, setEmail] = useState("");
@@ -61,13 +62,9 @@ const ModalUpdateUser = (props) => {
       toast.error("Invalid email format");
       return;
     }
-    if (!password || password.length < 6) {
-      toast.error("Invalid password");
-      return;
-    }
     // call APIs
 
-    let data = await postCreateNewUser(email, password, username, role, image);
+    let data = await putUpdateUser( dataUpdate.id, username, role, image);
     if (data && data.EC === 0) {
       toast.success(data.EM);
       handleClose();
