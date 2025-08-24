@@ -1,15 +1,19 @@
 import ModalCreateUser from "./ModalCreateUser";
 import ModalUpdateUser from "./ModalUpdateUser";
+import ModalViewUser from "./ModalViewUser";
 import "./ManageUser.scss";
 import { FaPlusCircle } from "react-icons/fa";
 import TableUser from "./TableUser";
 import { useEffect, useState } from "react";
 import { getAllUsers } from "../../../services/apiServices";
 import { Modal } from "bootstrap";
+import { set } from "lodash";
 const ManageUser = (props) => {
   const [showModalCreateUser, setShowModalCreateUser] = useState(false);
   const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
+  const [showModalViewUser, setShowModalViewUser] = useState(false);
   const [dataUpdate, setDataUpdate] = useState({});
+  const [dataView, setDataView] = useState({});
 
   const [listUsers, setListUsers] = useState([]);
   // componentDidMount equivalent
@@ -28,11 +32,21 @@ const ManageUser = (props) => {
   const handleClickBtnUpdate = (user) => {
     setShowModalUpdateUser(true);
     setDataUpdate(user);
-    console.log("user to update", user);
+    // console.log("user to update", user);
+  }
+
+  const handleClickBtnView = (user) => {
+    setShowModalViewUser(true);
+    setDataView(user);
+    // console.log("user to update", user);
   }
 
   const resetUpdateData = () => {
     setDataUpdate({});
+  }
+
+  const resetViewData = () => {
+    setDataView({});
   }
 
 
@@ -52,6 +66,7 @@ const ManageUser = (props) => {
           <TableUser 
             listUsers={listUsers}
             handleClickBtnUpdate={handleClickBtnUpdate}
+            handleClickBtnView={handleClickBtnView}
           />
         </div>
         <ModalCreateUser
@@ -65,6 +80,13 @@ const ManageUser = (props) => {
           dataUpdate={dataUpdate}
           fetchListUsers={fetchListUsers}
           resetUpdateData={resetUpdateData}
+        />
+        <ModalViewUser
+          show={showModalViewUser}
+          setShow={setShowModalViewUser}
+          dataView={dataView}
+          fetchListUsers={fetchListUsers}
+          resetViewData={resetViewData}
         />
       </div>
     </div>
