@@ -44,7 +44,7 @@ const ModalViewUser = (props) => {
     }
   };
 
-  console.log('dataView in ModalViewUser:', dataView);
+  // console.log('dataView in ModalViewUser:', dataView);
   return (
     <>
       <Modal

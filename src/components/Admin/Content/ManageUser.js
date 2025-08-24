@@ -1,6 +1,7 @@
 import ModalCreateUser from "./ModalCreateUser";
 import ModalUpdateUser from "./ModalUpdateUser";
 import ModalViewUser from "./ModalViewUser";
+import ModalDeleteUser from "./ModalDeleteUser";
 import "./ManageUser.scss";
 import { FaPlusCircle } from "react-icons/fa";
 import TableUser from "./TableUser";
@@ -14,7 +15,8 @@ const ManageUser = (props) => {
   const [showModalViewUser, setShowModalViewUser] = useState(false);
   const [dataUpdate, setDataUpdate] = useState({});
   const [dataView, setDataView] = useState({});
-
+  const [showModalDeleteUser, setShowModalDeleteUser] = useState(false);
+  const [dataDelete, setDataDelete] = useState({});
   const [listUsers, setListUsers] = useState([]);
   // componentDidMount equivalent
   useEffect(() => {
@@ -39,6 +41,13 @@ const ManageUser = (props) => {
     setShowModalViewUser(true);
     setDataView(user);
     // console.log("user to update", user);
+  }
+
+  const handleClickBtnDelete = (user) => {
+    // console.log("user to delete", user);
+
+    setShowModalDeleteUser(true);
+    setDataDelete(user);
   }
 
   const resetUpdateData = () => {
@@ -67,6 +76,8 @@ const ManageUser = (props) => {
             listUsers={listUsers}
             handleClickBtnUpdate={handleClickBtnUpdate}
             handleClickBtnView={handleClickBtnView}
+            handleClickBtnDelete={handleClickBtnDelete}
+
           />
         </div>
         <ModalCreateUser
@@ -87,6 +98,11 @@ const ManageUser = (props) => {
           dataView={dataView}
           fetchListUsers={fetchListUsers}
           resetViewData={resetViewData}
+        />
+        <ModalDeleteUser 
+          show={showModalDeleteUser}
+          setShow={setShowModalDeleteUser}
+          dataDelete={dataDelete}
         />
       </div>
     </div>
