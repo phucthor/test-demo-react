@@ -68,7 +68,8 @@ const ModalUpdateUser = (props) => {
     if (data && data.EC === 0) {
       toast.success(data.EM);
       handleClose();
-      await props.fetchListUsers(); // Refresh the user list after creation
+      // await props.fetchListUsers(); // Refresh the user list after creation
+      await props.fetchListUsersWithPaginate(props.currentPage); // Refresh the user list after deletion
     }
 
     if (data && data.EC !== 0) {

@@ -9,6 +9,7 @@ const TableUserPaginate = (props) => {
     // adding +1 because page index starts from 0 in ReactPaginate
     // and add + before event.selected to convert string to number
     props.fetchListUsersWithPaginate(+event.selected + 1);
+    props.setCurrentPage(+event.selected + 1);
     console.log(`User requested page number ${event.selected + 1}`);
   };
   return (
@@ -60,7 +61,7 @@ const TableUserPaginate = (props) => {
             })}
           {listUsers && listUsers.length === 0 && (
             <tr>
-              <td colSpan="4" className="text-center">
+              <td colSpan="5" className="text-center">
                 No users found
               </td>
             </tr>
@@ -88,6 +89,7 @@ const TableUserPaginate = (props) => {
           containerClassName="pagination"
           activeClassName="active"
           renderOnZeroPageCount={null}
+          forcePage={props.currentPage - 1} // to fix the issue of current page not updating
           />
       </div>
     </>
