@@ -2,7 +2,18 @@
   .header {
     height: 45px;
     text-align: right;
-    border: 1px solid red;
+    padding: 5px 100px 0 100px;
+    button {
+      margin-left: 10px;
+      background: rgb(180, 180, 180);
+      height: 30px;
+      border-radius: 5px;
+      border: 1px solid;
+      cursor: pointer;
+      &:hover {
+        background-color: whitesmoke;
+      }
+    }
   }
 
   .title {
@@ -30,6 +41,13 @@
       margin: 20px 0;
       color: white;
       background: black;
+    }
+
+    .back {
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }
