@@ -8,10 +8,25 @@ const Login = (props) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
   const handleLogin = async() => {
     // validate
-    if (!email || !password) {
-      alert("Email/Password is required");
+    const isValidEmail = validateEmail(email);
+    console.log('CHECKKKKKKKKKKKKKKKK email', isValidEmail);
+    if (!isValidEmail) {
+      toast.error("Invalid email format");
+      return;
+    }
+
+    if (!password || password.length < 6) {
+      toast.error("Invalid password");
       return;
     }
     // call api
@@ -28,7 +43,7 @@ const Login = (props) => {
     <div className="login-container">
       <div className="header">
         <span>Don't have an account?</span>
-        <button>Sign up</button>
+        <button onClick={() => navigate('/register')}>Sign up</button>
       </div>
       <div className="title col-4 mx-auto">Tommy React</div>
       <div className="welcome col-4 mx-auto">Hello, who's this?</div>
