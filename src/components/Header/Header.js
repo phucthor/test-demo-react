@@ -37,7 +37,7 @@ const Header = () => {
               <Nav.Link href="/admins">Admin</Nav.Link> */}
             </Nav>
             <Nav>
-              {isAuthenticated === false ?
+               {isAuthenticated === false ?
                 <>
                   <button className='btn-login' onClick={() => handleLogin()}>Log in</button>
                   <button className='btn-signup'onClick={() => handleRegister()} >Sign up</button>

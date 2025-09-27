@@ -1,4 +1,20 @@
 .login-container {
+  .loader-icon {
+    font-size: 14px;
+    margin-right: 8px;
+    margin-bottom: 3px;
+    color: rgb(31, 160, 247);
+    animation: spin 2s linear infinite;
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  }
+
   .header {
     height: 45px;
     text-align: right;
@@ -41,6 +57,11 @@
       margin: 20px 0;
       color: white;
       background: black;
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: no-drop;
+      }
     }
 
     .back {
