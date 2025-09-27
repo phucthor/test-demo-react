@@ -1,6 +1,5 @@
 import axios from "axios";
 import NProgress from "nprogress";
-NProgress.start();
 NProgress.configure({ 
   showSpinner: false,
   trickleSpeed: 200,
@@ -18,6 +17,7 @@ instance.interceptors.request.use(function (config) {
     // Do something before request is sent
     return config;
   }, function (error) {
+    NProgress.done();
     // Do something with request error
     return Promise.reject(error);
   });
