@@ -37,6 +37,7 @@ const DetailQuiz = (props) => {
                                     questionDescription = item.description;
                                     image = item.image;
                                 }
+                                item.answers.isSelected = false;
                                 answers.push(item.answers);
                                 // console.log('item answers:', item.answers);
                                 // item.answers = JSON.parse(item.answers);
@@ -65,6 +66,31 @@ const DetailQuiz = (props) => {
         }
     }
 
+    const handleCheckbox = (answerId, questionId) => {
+        console.log('check answerId:', answerId, ' questionId:', questionId);
+        let dataQuizClone = _.cloneDeep(dataQuiz); // react hook does not detect change if we just modify the array directly
+        let question = dataQuizClone.find(item => +item.questionId === +questionId);
+        if (question && question.answers) {
+            question.answers = question.answers.map(item => {
+                if (+item.id === +answerId) {
+                    item.isSelected = !item.isSelected;
+                }
+                return item;
+            });
+            // console.log('check b ', b);
+            // console.log('check question:', question);
+            // question.answers = b;
+        }
+
+        let indexQ = dataQuizClone.findIndex(item => +item.questionId === +questionId);
+        if (indexQ > -1) {
+            dataQuizClone[indexQ] = question;
+            setDataQuiz(dataQuizClone);
+        }
+
+        console.log('check dataQuizClone:', dataQuizClone);
+    }
+
     return (
         <div className="detail-quiz-container">
             <div className="left-content">
@@ -78,7 +104,9 @@ const DetailQuiz = (props) => {
                 <div className="q-content">
                     <Question 
                         index={index}
+                        handleCheckbox={handleCheckbox}
                         data={ 
+                            // check if dataQuiz is not empty
                             dataQuiz && dataQuiz.length > 0 
                             ? 
                             dataQuiz[index] 
@@ -93,6 +121,9 @@ const DetailQuiz = (props) => {
                     <button className="btn btn-primary"
                         onClick={() => handleNext()}
                     >Next</button>
+                    <button className="btn btn-warning"
+                        onClick={() => handleNext()}
+                    >Finish</button>
                 </div>
             </div>
 
