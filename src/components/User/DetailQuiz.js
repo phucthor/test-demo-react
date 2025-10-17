@@ -52,7 +52,7 @@ const DetailQuiz = (props) => {
         }
     }
 
-    console.log("check dataQuiz:", dataQuiz);
+    // console.log("check dataQuiz:", dataQuiz);
 
     const handlePrev = () => {
         if (index - 1 < 0) return;
@@ -67,7 +67,7 @@ const DetailQuiz = (props) => {
     }
 
     const handleCheckbox = (answerId, questionId) => {
-        console.log('check answerId:', answerId, ' questionId:', questionId);
+        // console.log('check answerId:', answerId, ' questionId:', questionId);
         let dataQuizClone = _.cloneDeep(dataQuiz); // react hook does not detect change if we just modify the array directly
         let question = dataQuizClone.find(item => +item.questionId === +questionId);
         if (question && question.answers) {
@@ -88,7 +88,48 @@ const DetailQuiz = (props) => {
             setDataQuiz(dataQuizClone);
         }
 
-        console.log('check dataQuizClone:', dataQuizClone);
+        // console.log('check dataQuizClone:', dataQuizClone);
+    }
+
+    const handleFinishQuiz = () => {
+        console.log('check data before submit:', dataQuiz);
+        // {
+        //     "quizId": 1,
+        //     "answers": [
+        //         { 
+        //             "questionId": 1,
+        //             "userAnswerId": [3]
+        //         },
+        //         { 
+        //             "questionId": 2,
+        //             "userAnswerId": [6]
+        //         }
+        //     ]
+        // }
+        let payload = {
+            quizId: +quizId,
+            answers: []
+        };
+        let answers = [];
+        if (dataQuiz && dataQuiz.length > 0) {
+            dataQuiz.forEach(question => {
+                let questionId = question.questionId;
+                let userAnswerId = [];
+
+                // to do : userAnswerId
+                question.answers.forEach(a => {
+                    if (a.isSelected === true) {
+                        userAnswerId.push(a.id);
+                    }
+                });
+                answers.push({ 
+                    questionId : +questionId, 
+                    userAnswerId : userAnswerId
+                });
+            })
+            payload.answers = answers;
+            console.log('final payload:', payload);
+        }
     }
 
     return (
@@ -122,7 +163,7 @@ const DetailQuiz = (props) => {
                         onClick={() => handleNext()}
                     >Next</button>
                     <button className="btn btn-warning"
-                        onClick={() => handleNext()}
+                        onClick={() => handleFinishQuiz()}
                     >Finish</button>
                 </div>
             </div>
