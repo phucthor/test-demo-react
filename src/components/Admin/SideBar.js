@@ -20,8 +20,9 @@ import sidebarBg from "../../assets/bg2.jpg";
 import { AiFillApple } from "react-icons/ai";
 import { MdDashboard } from "react-icons/md";
 import "./SideBar.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const SideBar = (props) => {
+  const navigate = useNavigate();
   const { image, collapsed, toggled, handleToggleSidebar } = props;
   return (
     <>
@@ -46,7 +47,9 @@ const SideBar = (props) => {
             }}
           >
             <AiFillApple size={"2em"} color={"aliceblue"} />
-            <span>Tommy Admin</span>
+            <span onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
+              Tommy Admin
+            </span>
           </div>
         </SidebarHeader>
 
@@ -71,7 +74,10 @@ const SideBar = (props) => {
                 Users
                 <Link to="/admins/manage-user" />
               </MenuItem>
-              <MenuItem>Quizzes</MenuItem>
+              <MenuItem>
+                Quizzes
+                <Link to="/admins/manage-quizzes" />
+              </MenuItem>
               <MenuItem>Questions</MenuItem>
             </SubMenu>
           </Menu>
