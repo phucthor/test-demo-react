@@ -61,6 +61,16 @@ const postSubmitQuiz = (data) => {
     return axios.post(`api/v1/quiz-submit`, {...data});
 }
 
+const postCreateNewQuiz = (name, description, difficulty, image) => {
+    // submit data to backend
+    const data = new FormData();
+    data.append('name', name);
+    data.append('description', description);
+    data.append('difficulty', difficulty);
+    data.append('quizImage', image);
+    return axios.post('api/v1/quiz', data);
+}
+
 export { postCreateNewUser
         , getAllUsers
         , putUpdateUser
@@ -71,4 +81,5 @@ export { postCreateNewUser
         , getQuizByUser
         , getDataQuiz
         , postSubmitQuiz
+        , postCreateNewQuiz
         };

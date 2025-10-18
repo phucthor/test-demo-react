@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "./ManageQuiz.scss";
 import Select from "react-select";
-
+import { postCreateNewQuiz } from "../../../../services/apiServices";
+import { toast } from "react-toastify";
 const options = [
   { value: "EASY", label: "EASY" },
   { value: "MEDIUM", label: "MEDIUM" },
@@ -9,12 +10,41 @@ const options = [
 ];
 
 const ManageQuiz = (props) => {
+  const fileInputRef = useRef(null);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [type, setType] = useState("EASY");
+  const [type, setType] = useState({ value: "EASY", label: "EASY" });
   const [image, setImage] = useState(null);
 
-  const handleChangeFile = (event) => {};
+  const handleChangeFile = (event) => {
+    if (event.target && event.target.files && event.target.files[0]) {
+      setImage(event.target.files[0]);
+    }
+  };
+
+  const handleSumitQuiz = async () => {
+    if (!name || !description) {
+      toast.error("Name/Description are required");
+      return;
+    }
+    let res = await postCreateNewQuiz(name, description, type?.value, image);
+    if (res && res.EC === 0) {
+      // success
+      toast.success(res.EM);
+      setName("");
+      setDescription("");
+      setType({ value: "EASY", label: "EASY" });
+      setImage(null);
+      // Reset file input value
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    } else {
+      // error
+      toast.error(res.EM);
+    }
+    console.log("res: ", res);
+  };
   return (
     <div className="quiz-container">
       <div className="title">Manage Quizzes</div>
@@ -45,19 +75,29 @@ const ManageQuiz = (props) => {
           <div className="my-3">
             <Select
               value={type}
-            //   onChange={this.handleChange}
+              //   onChange={this.handleChange}
+              defaultValue={type}
+              onChange={setType}
               options={options}
-              placeholder={"Quiz Type..."}
+              placeholder={"Quiz Typevent..."}
             />
           </div>
           <div className="more-actions form-group">
             <label className="mb-1">Upload Image</label>
             <input
+              ref={fileInputRef}
               type="file"
               className="form-control"
               onChange={(event) => handleChangeFile(event)}
             />
-            <button className="btn btn-primary mt-3">Add New</button>
+          </div>
+          <div className="mt-3">
+            <button
+              onClick={() => handleSumitQuiz()}
+              className="btn btn-warning"
+            >
+              Save
+            </button>
           </div>
         </fieldset>
       </div>
