@@ -3,54 +3,17 @@
   .admin-sidebar {
     .pro-sidebar {
       height: 100vh !important;
-    //   position: fixed;
-    //   z-index: 1000;
-    //   width: 250px;
-    //   background-color: #f8f9fa;
-    //   .pro-sidebar-inner {
-    //     background-color: #f8f9fa;
-    //     .pro-menu-item {
-    //       color: #000;
-    //       &:hover {
-    //         background-color: #e9ecef;
-    //       }
-    //     }
-    //   }
     }
   }
   .admin-content{
-    flex: 1;
-    padding: 20px;
-    background-color: #f8f9fa;
-    height: 100vh;
-    overflow-y: auto;
+    width: 100%;
     .admin-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 20px;
-      background-color: #fff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      h1 {
-        font-size: 24px;
-        color: #333;
-      }
+      height: 40px;
+      border: 1px solid #ddd;
     }
     .admin-main {
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      h2 {
-        font-size: 20px;
-        color: #333;
-        margin-bottom: 20px;
-      }
-      p {
-        font-size: 16px;
-        color: #666;
-      }
-
+      height: calc(100vh - 40px);
+      margin-bottom: 10px;
       .user-pagination {
         display: flex;
         justify-content: center;
