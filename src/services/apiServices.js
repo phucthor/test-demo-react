@@ -71,6 +71,10 @@ const postCreateNewQuiz = (name, description, difficulty, image) => {
     return axios.post('api/v1/quiz', data);
 }
 
+const getAllQuizForAdmin = () => {
+    return axios.get(`api/v1/quiz/all`);
+}
+
 export { postCreateNewUser
         , getAllUsers
         , putUpdateUser
@@ -82,4 +86,5 @@ export { postCreateNewUser
         , getDataQuiz
         , postSubmitQuiz
         , postCreateNewQuiz
+        , getAllQuizForAdmin
         };

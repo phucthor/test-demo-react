@@ -14,15 +14,11 @@ const Admin = (props) => {
       <div className="admin-content">
         <div className="admin-header">
           <FaBars onClick={() => setCollapsed(!collapsed)} />
-          <h1>Admin Page</h1>
+          {/* <h1>Admin Page</h1> */}
         </div>
         <div className="admin-main">
             <Outlet />
         </div>
-        <p>
-          This is the admin page where you can manage users, settings, and other
-          administrative tasks.
-        </p>
       </div>
       
     </div>

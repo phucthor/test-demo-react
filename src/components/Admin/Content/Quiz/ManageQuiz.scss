@@ -1,13 +1,15 @@
 .quiz-container {
-    padding: 15px;
 
     .title {
         font-size: 24px;
         font-weight: bold;
-        margin-bottom: 20px;
     }
 
     legend {
         font-size: 13px;
+    }
+
+    .list-detail {
+       padding: 15px;
     }
 }
